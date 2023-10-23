@@ -3,7 +3,7 @@ def main():
     book_path = "./books/frankenstein.txt"
 
     # Read the book's text from the file
-    text = read_book(book_path)
+    text = read_book("sample_text.txt")
 
     # Count the number of words in the text
     words = count_words(text)
@@ -42,22 +42,36 @@ def count_letters(text):
 def get_report(words, letters):
     # Generate a report including word count and letter frequency
     chars_data = ""
-    sorted_list = []
+    
+    # sorted_list = []
 
     # Sort the list of letter frequencies in descending order
-    for letter in letters:
-        if not letter.isalpha():
-            continue
-        sorted_list.append(letters[letter])
-    sorted_list.sort(reverse=True)
+    # for letter in letters:
+    #     if not letter.isalpha():
+    #         continue
+    #     sorted_list.append(letters[letter])
+    # sorted_list.sort(reverse=True)
+
+    # Sort the list of letter frequencies in descending order
+    letters_list = sorted(letters.items(), key=lambda item: item[1], reverse=True)
+    letters = dict(letters_list)
 
     # Generate the character frequency data for the report
-    for char_count in sorted_list:
-        for key, value in letters.items():
-            if value == char_count:
-                char = key
-                char_data = f"The '{char}' character was found {char_count} times\n"
-                chars_data += char_data
+    # for char_count in sorted_list:
+    #     for key, value in letters.items():
+    #         if value == char_count:
+    #             char = key
+    #             char_data = f"The '{char}' character was found {char_count} times\n"
+    #             chars_data += char_data
+
+
+    # Generate the character frequency data for the report
+    for key, value in letters.items():
+        if not key.isalpha():
+            continue
+        char = key
+        char_data = f"The '{char}' character was found {value} times\n"
+        chars_data += char_data
 
     # Construct and return the final report
     return f"--- Begin report of books/frankenstein.txt --- \n{words} words found in the document \n\n{chars_data}\n--- End report ---"
